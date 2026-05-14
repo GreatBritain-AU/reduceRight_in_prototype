@@ -32,9 +32,5 @@ MyArray.prototype.ReduceRight = function (callback, sValue){
 }
 
 const firstArr = new MyArray(1, 2, 3, 4, 5);
-const secondArr = firstArr;
 
 console.log(firstArr.ReduceRight((accu, curr) => {return accu + curr}, 0));
-console.log(secondArr.ReduceRight((accu, curr) => {return accu + curr}, 0));
-
-console.log(firstArr === secondArr);
