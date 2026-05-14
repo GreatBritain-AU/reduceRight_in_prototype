@@ -1,12 +1,11 @@
 'use strict';
 
-function MyArray(ele1, ele2, ele3, ele4, ele5){
-    this[0] = ele1;
-    this[1] = ele2;
-    this[2] = ele3;
-    this[3] = ele4;
-    this[4] = ele5;
-    this.length = 5;
+function MyArray(...args){
+    this.length = 0;
+    for(let i = 0; i < args.length; i++){
+        this[this.length] = args[i]
+        this.length++
+    }
 }
 
 MyArray.prototype.ReduceRight = function (callback, sValue){
@@ -31,6 +30,6 @@ MyArray.prototype.ReduceRight = function (callback, sValue){
     return res;
 }
 
-const firstArr = new MyArray(1, 2, 3, 4, 5);
+const firstArr = new MyArray(1, 2, 3, 4, 5, 6);
 
 console.log(firstArr.ReduceRight((accu, curr) => {return accu + curr}, 0));
