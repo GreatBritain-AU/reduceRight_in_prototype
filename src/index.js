@@ -8,7 +8,17 @@ function MyArray(...args){
     }
 }
 
-MyArray.prototype.ReduceRight = function (callback, sValue){
+function MyArrayProto(){
+    this.push = function(){
+        if(arguments){
+            for(let i = 0; i < arguments.length; i++){
+                this[this.length++] = arguments[i];
+            }
+        }
+        return this.length;
+    }
+
+    this.reduceRight = function(callback, sValue){
     let res;
     let sIndex;
     if(sValue !== undefined){
@@ -28,7 +38,10 @@ MyArray.prototype.ReduceRight = function (callback, sValue){
     }
 
     return res;
+    }
 }
+
+MyArray.prototype = new MyArrayProto();
 
 const firstArr = new MyArray(1, 2, 3, 4, 5, 6);
 
