@@ -39,11 +39,11 @@ function MyArrayProto(){
     }
 
     this.flat = function(depth = 1){
-        let res = new MyArray;
+        let res = new MyArray();
 
         const arrFlatten = (arr, curDep) => {
             for(let i = 0; i < arr.length; i++){
-                if((arr[i] instanceof Array || Array.isArray(arr[i])) && curDep < depth){
+                if((arr[i] instanceof MyArray || Array.isArray(arr[i])) && curDep < depth){
                     arrFlatten(arr[i], curDep + 1)
                 } else {
                     res.push(arr[i])
