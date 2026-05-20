@@ -10,11 +10,9 @@ function MyArray(...args){
 
 function MyArrayProto(){
     this.push = function(){
-        if(arguments){
             for(let i = 0; i < arguments.length; i++){
                 this[this.length++] = arguments[i];
             }
-        }
         return this.length;
     }
 
@@ -39,10 +37,32 @@ function MyArrayProto(){
 
     return res;
     }
+
+    this.flat = function(depth = 1){
+        let res = new MyArray;
+
+        const arrFlatten = (arr, curDep) => {
+            for(let i = 0; i < arr.length; i++){
+                if((arr[i] instanceof Array || Array.isArray(arr[i])) && curDep < depth){
+                    arrFlatten(arr[i], curDep + 1)
+                } else {
+                    res.push(arr[i])
+                }
+            }
+        }
+
+        arrFlatten(this, 0);
+
+        return res;
+    }
 }
 
 MyArray.prototype = new MyArrayProto();
 
 const firstArr = new MyArray(1, 2, 3, 4, 5, 6);
 
-console.log(firstArr.ReduceRight((accu, curr) => {return accu + curr}, 0));
+const secondArr = new MyArray(1, 2, [3, 4, [5, 6]]);
+
+console.log(firstArr.reduceRight((accu, curr) => {return accu + curr}, 0));
+
+console.log(secondArr.flat(1));
